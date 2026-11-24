@@ -1,0 +1,25 @@
+CREATE TABLE IF NOT EXISTS users (
+    id BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+	umcn VARCHAR(20) UNIQUE, -- Unique Master Citizen Number
+    email VARCHAR(50) NOT NULL UNIQUE,
+    password_hash TEXT NOT NULL,
+    display_name VARCHAR(50),
+    bio TEXT,
+    profile_picture_url TEXT,
+	created_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_at TIMESTAMPTZ NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active BOOLEAN NOT NULL DEFAULT TRUE,
+	is_banned BOOLEAN NOT NULL DEFAULT FALSE,
+	is_online BOOLEAN NOT NULL DEFAULT FALSE,
+    is_email_verified BOOLEAN NOT NULL DEFAULT FALSE,
+	is_phone_verified BOOLEAN NOT NULL DEFAULT FALSE,
+	is_identity_verified BOOLEAN NOT NULL DEFAULT FALSE,
+	email_verified_at TIMESTAMPTZ,
+    phone_verified_at TIMESTAMPTZ,
+	identity_verified_at TIMESTAMPTZ,
+    last_seen_at TIMESTAMPTZ,
+
+	role VARCHAR(20) NOT NULL DEFAULT 'USER'
+	CHECK (role IN ('USER', 'MODERATOR', 'ADMIN'))
+);
